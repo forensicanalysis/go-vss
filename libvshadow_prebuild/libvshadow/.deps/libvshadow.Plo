@@ -1,0 +1,12 @@
+libvshadow.lo: libvshadow.c /usr/include/stdc-predef.h ../common/common.h \
+ ../common/config.h ../common/config_winapi.h libvshadow_unused.h
+
+/usr/include/stdc-predef.h:
+
+../common/common.h:
+
+../common/config.h:
+
+../common/config_winapi.h:
+
+libvshadow_unused.h:

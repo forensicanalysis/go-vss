@@ -1,0 +1,5 @@
+libvshadow-20191221/
+.vscode/
+*.o
+.DS_Store
+coverage.txt
