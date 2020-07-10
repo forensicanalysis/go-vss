@@ -128,14 +128,14 @@ func getStores(volume *C.libvshadow_volume_t) ([]*VSS, error) {
 			C.libvshadow_error_free(&err)
 			return nil, errors.New("unable to get store")
 		}
-		var vss VSS
+		vss := &VSS{}
 		var e error
 		vss.store = store
-		vss.fs, e = ntfs.New(&vss)
+		vss.fs, e = ntfs.New(vss)
 		if e != nil {
 			return nil, e
 		}
-		stores[i] = &vss
+		stores[i] = vss
 	}
 	return stores, nil
 }
