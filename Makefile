@@ -1,3 +1,4 @@
+.PHONY: test
 
 LIBVERSION=libvshadow-20191221
 
