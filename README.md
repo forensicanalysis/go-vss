@@ -1,6 +1,15 @@
-# GO-VSS
-This projects port the [libvshadow by Joachim Metz](https://github.com/libyal/libvshadow) to GO. The project supports macos, linux and windows systems.
-GO-VSS parses a raw VSS file into a [NTFS file system](https://github.com/forensicanalysis/fslib/tree/master/filesystem/ntfs).
+<h1 align="center">go-vss</h1>
+
+<p  align="center">
+ <a href="https://github.com/forensicanalysis/go-vss/actions"><img src="https://github.com/forensicanalysis/go-vss/workflows/CI/badge.svg" alt="build" /></a>
+ <a href="https://codecov.io/gh/forensicanalysis/go-vss"><img src="https://codecov.io/gh/forensicanalysis/go-vss/branch/master/graph/badge.svg" alt="coverage" /></a>
+ <a href="https://goreportcard.com/report/github.com/forensicanalysis/go-vss"><img src="https://goreportcard.com/badge/github.com/forensicanalysis/go-vss" alt="report" /></a>
+ <a href="https://pkg.go.dev/github.com/forensicanalysis/go-vss"><img src="https://img.shields.io/badge/go.dev-documentation-007d9c?logo=go&logoColor=white" alt="doc" /></a>
+</p>
+
+
+This projects adds bindings for [libvshadow](https://github.com/libyal/libvshadow) for Go for macos, linux and windows systems.
+go-vss parses a raw VSS file into a [NTFS file system](https://github.com/forensicanalysis/fslib/tree/master/filesystem/ntfs).
 
 # Usage
 
@@ -16,58 +25,72 @@ go get github.com/forensicanalysis/go-vss
 
 ## Using a go reader object
 ```go
+package main
+
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
+
 	"github.com/forensicanalysis/go-vss"
 )
 
-reader, err := os.Open("vss.raw")
+func main() {
+	reader, err := os.Open("vss.raw")
 
-stores, err := vss.NewByReader(reader)
+	stores, err := vss.NewByReader(reader)
 
-for _, fs := range stores {
+	for _, fs := range stores {
 		root, _ := fs.Open("/")
 		filenames, _ := root.Readdirnames(0)
 		fmt.Println(filenames)
+	}
 }
 ```
 
 ## Using a file descriptor
 ```go
+package main
+
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"syscall"
+
 	"github.com/forensicanalysis/go-vss"
 )
 
-fd, err := syscall.Open(path, syscall.O_RDONLY | syscall.O_CLOEXEC, 755)
+func main() {
+	fd, err := syscall.Open(path, syscall.O_RDONLY|syscall.O_CLOEXEC, 755)
 
-stores, err := vss.NewByFd(fd)
+	stores, err := vss.NewByFd(fd)
 
-for _, fs := range stores {
+	for _, fs := range stores {
 		root, _ := fs.Open("/")
 		filenames, _ := root.Readdirnames(0)
 		fmt.Println(filenames)
+	}
 }
 ```
 
 ## Using a path
 ```go
+package main
+
 import (
-    "fmt"
-    "os"
+	"fmt"
+
 	"github.com/forensicanalysis/go-vss"
 )
 
-path:="vss.raw"
+func main() {
+	path := "vss.raw"
 
-stores, err := vss.NewByPath(path)
+	stores, err := vss.NewByPath(path)
 
-for _, fs := range stores {
+	for _, fs := range stores {
 		root, _ := fs.Open("/")
 		filenames, _ := root.Readdirnames(0)
 		fmt.Println(filenames)
+	}
 }
 ```
 
