@@ -23,7 +23,7 @@ jobs:
           name: libvshadow_windows
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
       - name: Download static libvshadow
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: libvshadow_windows
 
@@ -42,7 +42,7 @@ jobs:
           name: libvshadow_linux
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
       - name: Download static libvshadow
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: libvshadow_linux
 
@@ -61,7 +61,7 @@ jobs:
           name: libvshadow_macos
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
       - name: Download static libvshadow
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: libvshadow_macos
 
