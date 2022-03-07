@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: make prepare_windows
       - name: Upload static libvshadow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: libvshadow_windows
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: make prepare_linux
       - name: Upload static libvshadow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: libvshadow_linux
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: make prepare_macos
       - name: Upload static libvshadow
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: libvshadow_macos
           path: libvshadow-20191221/libvshadow/.libs/libvshadow.a
