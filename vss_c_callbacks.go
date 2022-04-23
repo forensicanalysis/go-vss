@@ -68,8 +68,8 @@ func reader_handle_write(handle *C.intptr_t, buffer *C.uint8_t, size C.size_t, e
 
 //export reader_handle_seak_offset
 func reader_handle_seak_offset(handle *C.intptr_t, off C.off64_t, whence C.int, err **C.libcerror_error_t) C.ssize_t {
-	//var test *VSSReader = (*VSSReader)(unsafe.Pointer(handle))
-	//test.offset = int(off)
+	// var test *VSSReader = (*VSSReader)(unsafe.Pointer(handle))
+	// test.offset = int(off)
 	index := int(uintptr(unsafe.Pointer(handle)))
 	globalData[index-1].offset = int(off)
 	return C.ssize_t(off) // nolint: unconvert
