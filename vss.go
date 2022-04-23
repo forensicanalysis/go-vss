@@ -110,7 +110,7 @@ func NewByPath(path string) ([]*VSS, error) {
 	return getStores(volume)
 }
 
-//getStores extract all stores found in a given volume.
+// getStores extract all stores found in a given volume.
 func getStores(volume *C.libvshadow_volume_t) ([]*VSS, error) {
 	var err *C.libvshadow_error_t
 	var numberOfStores C.int = C.int(0)
@@ -140,7 +140,7 @@ func getStores(volume *C.libvshadow_volume_t) ([]*VSS, error) {
 	return stores, nil
 }
 
-//initVolume initializes a given volume.
+// initVolume initializes a given volume.
 func initVolume(volume **C.libvshadow_volume_t) error {
 	var err *C.libvshadow_error_t
 
@@ -172,7 +172,7 @@ func (vss *VSS) Stat(path string) (os.FileInfo, error) {
 	return vss.fs.Stat(path)
 }
 
-//ReadAt reads data from the internal vss store.
+// ReadAt reads data from the internal vss store.
 func (vss *VSS) ReadAt(b []byte, off int64) (n int, err error) {
 	var error *C.libvshadow_error_t
 	var offset Offset = Offset(off)
