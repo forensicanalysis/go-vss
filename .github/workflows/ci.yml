@@ -4,7 +4,7 @@ on:
     branches: [ master ]
   pull_request:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
 
@@ -70,7 +70,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
       fail-fast: false
     steps:
 
@@ -79,29 +79,26 @@ jobs:
 
       - name: Setup go 1.18
         uses: actions/setup-go@v3
-        with: {go-version: '1.18'}
+        with: { go-version: '1.18' }
 
-      - name: Install golangci-lint & go-acc
-        run: |
-          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.25.0
-          go install github.com/ory/go-acc@latest
-        shell: bash
-
-      - name: Build
-        run: make build
+      - run: make build
 
       - name: Download Testdata
         run: curl --fail --silent --output vss.raw.zip --location https://download.artifacthub.org/windows/vss.raw.zip
 
-      - name: Test
-        run: make test
-
-      - name: Coverage
-        run: make coverage
+      - run: make test
+      - run: go install github.com/ory/go-acc@latest
+      - run: make coverage
 
       - name: Lint
-        run: golangci-lint run --verbose --config test/.golangci.yml --enable gofmt --enable goimports
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.45.2
+          args: --verbose --config test/.golangci.yml --enable gofmt --enable goimports
         if: matrix.os != 'windows-latest'
       - name: Lint Windows
-        run: golangci-lint run --verbose --config test/.golangci.yml
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.45.2
+          args: --verbose --config test/.golangci.yml
         if: matrix.os == 'windows-latest'
