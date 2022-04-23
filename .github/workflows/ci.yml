@@ -80,6 +80,8 @@ jobs:
       - name: Setup go 1.18
         uses: actions/setup-go@v3
         with: { go-version: '1.18' }
+      - name: Download dependencies
+        run: go mod download
 
       - run: make build
 
